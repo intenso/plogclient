@@ -7,7 +7,8 @@ client, instead I would like to provide a logclient library that could
 help other applications, in a nice way, to interact with the log output.
 
 For POC reasons I provide a "logclient" with the lib, but it's features
-will be limited.
+will be limited. Also "plogprinter" is provided, it takes raw logclient
+data from a file as input. It's a way of do off line testing.
 
 
 Requirements
