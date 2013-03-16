@@ -1,0 +1,49 @@
+About plogclient
+================
+
+This is and implementation of the logclient "protocol" for Set-top boxes
+running KreaTV. The aim is not to replace the already available binary
+client, instead I would like to provide a logclient library that could
+help other applications, in a nice way, to interact with the log output.
+
+For POC reasons I provide a "logclient" with the lib, but it's features
+will be limited.
+
+
+Requirements
+============
+
+Plogclient is developed on Ubuntu with python 2.7. To handle the binary
+data the module bitstring is used, unfortunately it's not part of the
+standard library. See instructions how to grab it at it's Site_.
+
+.._Site http://pythonhosted.org/bitstring/index.html
+
+Also, a Set-top box running KreaTV and compiled for with log client
+could be handy... ;-)
+
+
+The Log client header
+=====================
+
+Since the log stream contains not only the log output in text format but
+also a binary 32 byte header I add a description of it here. NOTE: it's
+not yet fully decoded.
+
+0000:0000 - 0000:0003 4byte 32bit unsigned int, log packet size in bytes
+0000:0004 - 0000:0007 4byte 32bit unsigned int, row counter
+0000:0008 - 0000:000B 4byte 32bit unsigned int, 0=debug, 1="normal"
+0000:000C - 0000:000F 4byte 32bit unsigned int, epoch
+0000:0010 - 0000:0013 4byte 32bit unsigned int, sub second 6 digit time
+0000:0014 - 0000:0017 4byte 32bit unsigned int, PID
+0000:0018 - 0000:001B 4byte 32bit unsigned int, log level(see below)
+0000:001C - 0000:001F 4byte some kind of counter
+
+I haven manage to fully sort out the log level values. This is what I've
+nailed so far.
+
+  02000000 = Error
+  03000000 = Warning
+  04000000 = None, Note
+  05000000 = (observed but unknown level)
+  
